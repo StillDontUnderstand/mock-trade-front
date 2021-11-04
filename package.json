@@ -11,6 +11,7 @@
     "axios": "^0.21.4",
     "draggable": "^4.2.0",
     "echarts": "^5.2.1",
+    "element-plus": "^1.2.0-beta.1",
     "js-file-download": "^0.4.12",
     "vue": "^3.0.4",
     "vue-router": "^4.0.12",
