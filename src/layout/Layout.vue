@@ -12,7 +12,7 @@
         @select="handleSelect"
       >
         <el-menu-item index="1">
-            <router-link to="/main/trade">Trade</router-link>
+          <router-link to="/main/trade">Trade</router-link>
         </el-menu-item>
         <el-sub-menu index="2">
           <template #title>Workspace</template>
@@ -33,6 +33,21 @@
         <el-menu-item index="5"
           ><router-link to="/main/statistic">Statistic</router-link>
         </el-menu-item>
+        <div class="avatar1">
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              <el-avatar
+                style="margin: 25% 0px 0px 0px"
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              ></el-avatar>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item :icon="Plus">Logout</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </el-menu>
     </el-header>
     <el-container>
@@ -49,15 +64,30 @@
   margin: 0px;
   background: #cddc39;
 }
-a,a:link,a:visited,a:hover,a:active{
-    text-decoration: none;
-    color:inherit;
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+.avatar1 {
+  right: 30px;
+  position: absolute;
 }
 </style>
 
 <script >
 import { defineComponent, ref } from "vue";
-
+import {
+  ArrowDown,
+  CircleCheck,
+  Check,
+  CirclePlus,
+  CirclePlusFilled,
+  Plus,
+} from "@element-plus/icons";
 export default defineComponent({
   setup() {
     const activeIndex2 = ref("1");
