@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$router.push('/home');
+      this.$router.push('/main');
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
       //     axios({

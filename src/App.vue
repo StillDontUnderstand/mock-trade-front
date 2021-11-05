@@ -4,21 +4,6 @@
 </script>
 
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <!-- <div id="nav">
-    <router-link to="/home">Home</router-link>
-  </div>
-  <div id="nav">
-    <router-link to="/trade">trade</router-link>
-  </div>
-  <div id="nav">
-    <router-link to="/statistic">statistic</router-link>
-  </div>
-  <div id="nav">
-    <router-link to="/portfolio">protfolio</router-link>
-  </div> -->
-
-  <!-- <HelloWorld msg="HomePage" /> -->
   <router-view></router-view>
 </template>
 
@@ -29,9 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
-.nav > a {
-  padding: 20px;
-}
+
 </style>
