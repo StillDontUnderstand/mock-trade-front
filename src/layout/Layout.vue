@@ -43,7 +43,7 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :icon="Plus">Logout</el-dropdown-item>
+                <el-dropdown-item :icon="Plus"><router-link to="/login">Logout</router-link></el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
