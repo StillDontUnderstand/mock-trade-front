@@ -5,7 +5,7 @@
 
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <div id="nav">
+  <!-- <div id="nav">
     <router-link to="/home">Home</router-link>
   </div>
   <div id="nav">
@@ -16,7 +16,7 @@
   </div>
   <div id="nav">
     <router-link to="/portfolio">protfolio</router-link>
-  </div>
+  </div> -->
 
   <!-- <HelloWorld msg="HomePage" /> -->
   <router-view></router-view>

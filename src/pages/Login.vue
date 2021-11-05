@@ -1,92 +1,86 @@
 
 <template>
-  <el-form
-    ref="ruleForm"
-    :model="ruleForm"
-    status-icon
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-  >
-    <el-form-item label="Activity name" prop="name">
-      <el-input v-model="ruleForm.name"></el-input>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
-      <el-button @click="resetForm('ruleForm')">Reset</el-button>
-    </el-form-item>
-  </el-form>
+  <div style="width: 400px; height: 300 px">
+    <el-form
+      ref="ruleForm"
+      :model="ruleForm"
+      status-icon
+      :rules="rules"
+      label-width="120px"
+      class="demo-ruleForm"
+    >
+      <el-form-item label="Activity name" prop="name">
+        <el-input v-model="ruleForm.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Password" prop="pass">
+        <el-input
+          v-model="ruleForm.pass"
+          type="password"
+          autocomplete="off"
+        ></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')"
+          >Submit</el-button
+        >
+        <el-button @click="resetForm('ruleForm')">Reset</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
+import axios from "axios";
+
 export default {
   data() {
-    const checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('Please input the age'))
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('Please input digits'))
-        } else {
-          if (value < 18) {
-            callback(new Error('Age must be greater than 18'))
-          } else {
-            callback()
-          }
-        }
-      }, 1000)
-    }
     const validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input the password'))
+      if (value === "") {
+        callback(new Error("Please input the password"));
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
         }
-        callback()
+        callback();
       }
-    }
-    const validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input the password again'))
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("Two inputs don't match!"))
-      } else {
-        callback()
-      }
-    }
+    };
     return {
       ruleForm: {
-        name:'',
-        pass: '',
-        checkPass: '',
-        age: '',
+        name: "",
+        pass: "",
+        checkPass: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: 'blur' }],
-        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-        age: [{ validator: checkAge, trigger: 'blur' }],
+        pass: [{ validator: validatePass, trigger: "blur" }],
       },
-    }
+    };
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          axios({
+            url: "api/put_selected_news",
+            method: "post",
+            crossdomain: true,
+            data: post_data,
+          }).then((res) => {
+            if (res.status == 200) {
+              message.success("提交成功");
+              this.generate_label();
+            }
+          });
+          alert("submit!");
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     },
+
     resetForm(formName) {
-      this.$refs[formName].resetFields()
+      this.$refs[formName].resetFields();
     },
   },
-}
+};
 </script>
