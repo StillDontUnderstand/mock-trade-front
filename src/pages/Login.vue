@@ -1,4 +1,3 @@
-
 <template>
   <div class="center" style="width: 400px; height: 300 px">
     <el-form
@@ -13,16 +12,10 @@
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="pass">
-        <el-input
-          v-model="ruleForm.pass"
-          type="password"
-          autocomplete="off"
-        ></el-input>
+        <el-input v-model="ruleForm.pass" type="password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >Submit</el-button
-        >
+        <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
         <el-button @click="resetForm('ruleForm')">Reset</el-button>
       </el-form-item>
     </el-form>
@@ -31,8 +24,6 @@
 <style>
 .center {
   margin: 20% auto;
-  /* border: 3px solid green; */
-  /* padding: 10px; */
 }
 </style>
 <script lang="js">
@@ -44,9 +35,9 @@ export default {
       if (value === "") {
         callback(new Error("Please input the password"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
+        // if (this.ruleForm.checkPass !== "") {
+        //   this.$refs.ruleForm.validateField("checkPass");
+        // }
         callback();
       }
     };
@@ -54,7 +45,7 @@ export default {
       ruleForm: {
         name: "",
         pass: "",
-        checkPass: "",
+        // checkPass: "",
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -63,25 +54,32 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$router.push('/main');
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     axios({
-      //       // url: "api/put_selected_news",
-      //       method: "post",
-      //       crossdomain: true,
-      //       data: post_data,
-      //     }).then((res) => {
-      //       if (res.status == 200) {
-      //         this.$router.push('/home');
-      //       }
-      //     });
-      //     alert("submit!");
-      //   } else {
-      //     console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
+      this.$refs[formName].validate((valid) => {
+        console.info(this.ruleForm)
+        if (valid) {
+          axios({
+            url: "api/login",
+            method: "post",
+            crossdomain: true,
+            contentType: "application/json",
+            data: {
+              "userName": this.ruleForm.name,
+              "passward": this.ruleForm.pass
+            },
+          }).then((res) => {
+            if (res.status == 200) {
+              if (res.data == true) {
+                this.$router.push('/main');
+              }else{
+                alert("userName and passwrod not match")
+              }
+            }
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
 
     resetForm(formName) {

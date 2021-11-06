@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       // 字符串简写写法
       '/api': {
-        target: 'http://192.168.142.152:8000', // 配置后端代理
+        target: 'http://127.0.0.1:8000', // 配置后端代理
         rewrite: (path) => path.replace(/^\/api/, ''),
         ws: true,                  // proxy websockets
         changeOrigin: true,        // 是否跨域

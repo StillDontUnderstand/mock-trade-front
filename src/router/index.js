@@ -8,7 +8,7 @@ import Trade from '../pages/Trade.vue';
 import Layout  from '../layout/Layout.vue';
 
 const routes = [
-    { path: "/", redirect: "/home" },
+    { path: "/", redirect: "/login" },
     {
         path: '/home',
         name:'home',
