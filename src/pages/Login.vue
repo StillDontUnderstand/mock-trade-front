@@ -12,10 +12,16 @@
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="pass">
-        <el-input v-model="ruleForm.pass" type="password" autocomplete="off"></el-input>
+        <el-input
+          v-model="ruleForm.pass"
+          type="password"
+          autocomplete="off"
+        ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')"
+          >Submit</el-button
+        >
         <el-button @click="resetForm('ruleForm')">Reset</el-button>
       </el-form-item>
     </el-form>
@@ -28,6 +34,7 @@
 </style>
 <script lang="js">
 import axios from "axios";
+import qs from 'qs';
 
 export default {
   data() {
@@ -55,24 +62,23 @@ export default {
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        console.info(this.ruleForm)
+        let data = new FormData();
+        data.append('username',this.ruleForm.name);
+        data.append('password',this.ruleForm.pass);
         if (valid) {
           axios({
-            url: "api/login",
+            url: "api/token",
             method: "post",
             crossdomain: true,
-            contentType: "application/json",
-            data: {
-              "userName": this.ruleForm.name,
-              "passward": this.ruleForm.pass
-            },
+            // contentType: "application/json",
+            // contentType: "application/x-www-form-urlencoded",
+            contentType: "multipart/form-data",
+            data: data,
           }).then((res) => {
             if (res.status == 200) {
-              if (res.data == true) {
-                this.$router.push('/main');
-              }else{
-                alert("userName and passwrod not match")
-              }
+              // console.info(res.data.access_token)
+              sessionStorage.token = res.data.access_token;
+              this.$router.push('/main');
             }
           });
         } else {
