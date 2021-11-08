@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-
+// import { FontAwesomeIcon } from './plugins/font-awesome'
 // import './index.css'
 // import axios from 'axios';
 // import VueAxios from 'vue-axios';
