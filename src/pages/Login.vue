@@ -55,26 +55,33 @@ export default {
       },
     };
   },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/profile');
+    }
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        let data = new FormData();
-        data.append('username',this.ruleForm.name);
-        data.append('password',this.ruleForm.pass);
+        const user = {
+          "username":this.ruleForm.name,
+          "password":this.ruleForm.pass
+        }
         if (valid) {
-          axios({
-            url: "api/token",
-            method: "post",
-            crossdomain: true,
-            contentType: "multipart/form-data",
-            data: data,
-          }).then((res) => {
-            if (res.status == 200) {
-              sessionStorage.token = res.data.access_token;
-              // this.$router.push('/main');
-              this.$router.replace({ path: "/main" });
+          this.$store.dispatch("auth/login", user).then(
+            () => {
+              this.$router.replace("/main/profile");
+            },
+            (error) => {
+              this.loading = false;
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
             }
-          });
+          );
         } else {
           console.log("error submit!!");
           return false;

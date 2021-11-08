@@ -43,7 +43,9 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :icon="Plus"><router-link to="/login">Logout</router-link></el-dropdown-item>
+                <el-dropdown-item :icon="Plus"
+                  ><span @click="logout">Logout</span></el-dropdown-item
+                >
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -98,6 +100,17 @@ export default defineComponent({
       activeIndex2,
       handleSelect,
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    },
   },
 });
 </script>

@@ -11,7 +11,7 @@ import 'element-plus/dist/index.css'
 import draggable from 'vuedraggable'
 import { router } from './router'
 import ElementPlus from 'element-plus'
-import { store } from './store'
+import store from './store'
 
 const app = createApp(App)
 

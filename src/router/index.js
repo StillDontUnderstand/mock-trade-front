@@ -8,17 +8,8 @@ import Trade from '../pages/Trade.vue';
 import Layout from '../layout/Layout.vue';
 
 
-// const Portfolio = () => import('../pages/Portfolio.vue')
-// const Statistic = () => import('../pages/Statistic.vue')
-// const Trade = () => import('../pages/Trade.vue')
-
 const routes = [
     { path: "/", redirect: "/login" },
-    // {
-    //     path: '/home',
-    //     name: 'home',
-    //     component: Home
-    // },
     {
         path: '/login',
         name: 'login',
@@ -26,7 +17,7 @@ const routes = [
     },
     {
         path: '/main',
-        component: Layout,
+        component: import('../layout/Layout1.vue'),
         meta: {
             requiresAuth: true,
         },
@@ -46,6 +37,11 @@ const routes = [
                 name: 'statistic',
                 component: Statistic
             },
+            {
+                path: 'profile',
+                name: 'profile',
+                component: import("../component/profile.vue")
+            }
         ],
     },
 ]
@@ -60,7 +56,6 @@ const router = createRouter({
 //     // console.info(sessionStorage)
 //     if (!sessionStorage.token) {
 //         console.info(to)
-//         console.info(next)
 //         // 1、当用户打开localhost，to.matched === []，匹配的是空路由，此时需要重定向到login
 //         // 2、重定向到login之后，to.matched === [name: "login", path: "/login"...] 就是上一步的login页面
 //         // to.matched.some(item => item.meta.requiresAuth) 这句的意思是 进入的路由页需要登录认证，取反就是不用登录，直接通过
