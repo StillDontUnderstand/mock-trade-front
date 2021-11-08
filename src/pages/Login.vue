@@ -42,9 +42,6 @@ export default {
       if (value === "") {
         callback(new Error("Please input the password"));
       } else {
-        // if (this.ruleForm.checkPass !== "") {
-        //   this.$refs.ruleForm.validateField("checkPass");
-        // }
         callback();
       }
     };
@@ -52,7 +49,6 @@ export default {
       ruleForm: {
         name: "",
         pass: "",
-        // checkPass: "",
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -70,15 +66,13 @@ export default {
             url: "api/token",
             method: "post",
             crossdomain: true,
-            // contentType: "application/json",
-            // contentType: "application/x-www-form-urlencoded",
             contentType: "multipart/form-data",
             data: data,
           }).then((res) => {
             if (res.status == 200) {
-              // console.info(res.data.access_token)
               sessionStorage.token = res.data.access_token;
-              this.$router.push('/main');
+              // this.$router.push('/main');
+              this.$router.replace({ path: "/main" });
             }
           });
         } else {
